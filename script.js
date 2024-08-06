@@ -1,9 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
     const recipes = [
-        { name: 'Spaghetti Carbonara', description: 'A classic Italian pasta dish made with eggs, cheese, pancetta, and pepper.' },
-        { name: 'Chicken Tikka Masala', description: 'A popular Indian curry made with grilled chunks of chicken enveloped in a creamy tomato sauce.' },
-        { name: 'Beef Stroganoff', description: 'A Russian dish of sautéed pieces of beef served in a sauce with smetana (sour cream).' },
-        { name: 'Vegetarian Pizza', description: 'A delicious pizza topped with bell peppers, olives, onions, and mushrooms.' }
+        { name: 'Spaghetti Carbonara', description: 'A classic Italian pasta dish made with eggs, cheese, pancetta, and pepper.', link: 'carbonara.html' },
+        { name: 'Chicken Tikka Masala', description: 'A popular Indian curry made with grilled chunks of chicken enveloped in a creamy tomato sauce.', link: 'tikka-masala.html' },
+        { name: 'Beef Stroganoff', description: 'A Russian dish of sautéed pieces of beef served in a sauce with smetana (sour cream).', link: 'stroganoff.html' },
+        { name: 'Vegetarian Pizza', description: 'A delicious pizza topped with bell peppers, olives, onions, and mushrooms.', link: 'vegetarian-pizza.html' }
     ];
 
     const recipeList = document.getElementById('recipes');
@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
         recipes.forEach(recipe => {
             const recipeItem = document.createElement('li');
             recipeItem.className = 'recipe-item';
-            recipeItem.innerHTML = `<h3>${recipe.name}</h3><p>${recipe.description}</p>`;
+            recipeItem.innerHTML = `<h3><a href="${recipe.link}">${recipe.name}</a></h3><p>${recipe.description}</p>`;
             recipeList.appendChild(recipeItem);
         });
     }
