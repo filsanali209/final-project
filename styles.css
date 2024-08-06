@@ -20,7 +20,7 @@ body {
 header {
     width: 100%;
     color: rgb(252, 253, 253);
-    position: relative; /* Fixes the header at the top */
+    position: relative;
     text-align: center;
 }
 
