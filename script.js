@@ -18,14 +18,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const emailInput = document.getElementById('email');
 
     // Function to display recipes
-    function displayRecipes(filteredRecipes) {
+    function filterRecipes() {
+        const query = searchBar.value.toLowerCase();
         recipeList.innerHTML = ''; // Clear current list
+        const filteredRecipes = recipes.filter(recipe => recipe.name.toLowerCase().includes(query));
         filteredRecipes.forEach(recipe => {
             const recipeItem = document.createElement('li');
-            recipeItem.innerHTML = `<a href="${recipe.link}">${recipe.name}</a>`;
+            recipeItem.className = 'recipe-item';
+            recipeItem.innerHTML = `<h3><a href="${recipe.link}">${recipe.name}</a></h3><p>${recipe.description}</p>`;
             recipeList.appendChild(recipeItem);
         });
     }
+
+    
 
     // Function to filter recipes based on search input
     function filterRecipes() {
