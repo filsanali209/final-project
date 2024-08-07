@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Form</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="details.html">Details</a></li>
+            <li><a href="recipe-form.html">Recipe Form</a></li>
+        </ul>
+    </nav>
+    <header>
+        <h1>Create a New Recipe</h1>
+    </header>
+    <main>
+        <form id="recipe-form">
+            <label for="recipe-name">Recipe Name:</label>
+            <input type="text" id="recipe-name" name="recipe-name" required>
+            
+            <label for="recipe-description">Description:</label>
+            <textarea id="recipe-description" name="recipe-description" required></textarea>
+            
+            <label for="recipe-ingredients">Ingredients (separate by commas):</label>
+            <textarea id="recipe-ingredients" name="recipe-ingredients" required></textarea>
+            
+            <label for="recipe-method">Method:</label>
+            <textarea id="recipe-method" name="recipe-method" required></textarea>
+            
+            <button type="submit">Submit Recipe</button>
+        </form>
+    </main>
+    <footer>
+        <p>&copy; 2024 Recipe Finder</p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
