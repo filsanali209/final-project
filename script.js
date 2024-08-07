@@ -1,33 +1,46 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const recipes = [
+        { name: 'Spaghetti Carbonara', link: 'carbonara.html' },
+        { name: 'Chicken Tikka Masala', link: 'tikka-masala.html' },
+        { name: 'Beef Stroganoff', link: 'stroganoff.html' },
+        { name: 'Vegetarian Pizza', link: 'vegetarian-pizza.html' },
+        { name: 'Pancakes', link: 'pancakes.html' },
+        { name: 'Margarita Pizza', link: 'margarita-pizza.html' },
+        { name: 'Lemon Garlic Shrimp', link: 'lemon-garlic-shrimp.html' },
+        { name: 'Beef Tacos', link: 'beef-tacos.html' },
+        { name: 'Caesar Salad', link: 'caesar-salad.html' },
+        { name: 'Chocolate Cake', link: 'chocolate-cake.html' }
+    ];
+
+    const recipeList = document.getElementById('recipes');
     const searchBar = document.getElementById('search-bar');
     const subscribeForm = document.getElementById('subscribe-form');
     const emailInput = document.getElementById('email');
 
-    function displayRecipes(recipes) {
-        recipeList.innerHTML = '';
-        recipes.forEach(recipe => {
+    // Function to display recipes
+    function displayRecipes(filteredRecipes) {
+        recipeList.innerHTML = ''; // Clear current list
+        filteredRecipes.forEach(recipe => {
             const recipeItem = document.createElement('li');
-            recipeItem.className = 'recipe-item';
-            recipeItem.innerHTML = `<a href="${recipe.name.toLowerCase().replace(/ /g, '-')}.html">${recipe.name}</a>`;
+            recipeItem.innerHTML = `<a href="${recipe.link}">${recipe.name}</a>`;
             recipeList.appendChild(recipeItem);
         });
     }
 
+    // Function to filter recipes based on search input
     function filterRecipes() {
         const query = searchBar.value.toLowerCase();
-        const recipeItems = document.querySelectorAll('#recipes li a');
-        recipeItems.forEach(item => {
-            const text = item.textContent.toLowerCase();
-            if (text.includes(query)) {
-                item.parentElement.style.display = 'block';
-            } else {
-                item.parentElement.style.display = 'none';
-            }
-        });
+        const filteredRecipes = recipes.filter(recipe => recipe.name.toLowerCase().includes(query));
+        displayRecipes(filteredRecipes);
     }
 
+    // Initialize with all recipes
+    displayRecipes(recipes);
+
+    // Event listener for search bar input
     searchBar.addEventListener('input', filterRecipes);
 
+    // Event listener for subscription form
     subscribeForm.addEventListener('submit', (e) => {
         e.preventDefault();
         const email = emailInput.value;
@@ -39,6 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Function to validate email address
     function validateEmail(email) {
         const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return re.test(email);
