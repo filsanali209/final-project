@@ -30,17 +30,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    
-
-    // Function to filter recipes based on search input
-    function filterRecipes() {
-        const query = searchBar.value.toLowerCase();
-        const filteredRecipes = recipes.filter(recipe => recipe.name.toLowerCase().includes(query));
-        displayRecipes(filteredRecipes);
-    }
-
-    // Initialize with all recipes
-    displayRecipes(recipes);
 
     // Event listener for search bar input
     searchBar.addEventListener('input', filterRecipes);
