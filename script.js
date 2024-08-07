@@ -18,7 +18,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const subscribeForm = document.getElementById('subscribe-form');
     const emailInput = document.getElementById('email');
     const searchButton = document.getElementById('search-button');
+    const recipeForm = document.getElementById('recipe-form');
+    const feedbackMessage = document.getElementById('feedback-message');
 
+    
     // Display frequently searched recipes
     const popularRecipes = [
         { name: 'Spaghetti Carbonara', link: 'carbonara.html' },
@@ -91,5 +94,25 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     displayPopularRecipes();
+
+
+    // Event listener for form submission
+    recipeForm.addEventListener('submit', (e) => {
+        e.preventDefault(); // Prevent the default form submission behavior
+
+        // Get form values
+        const name = document.getElementById('recipe-name').value;
+        const description = document.getElementById('recipe-description').value;
+        const ingredients = document.getElementById('recipe-ingredients').value;
+        const method = document.getElementById('recipe-method').value;
+
+        // Display the confirmation message
+        feedbackMessage.innerHTML = `
+            <p>Thank you! Your recipe "<strong>${name}</strong>" has been submitted successfully.</p>
+        `;
+
+        // Optionally clear the form
+        recipeForm.reset();
+    });
 
 });

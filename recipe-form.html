@@ -18,20 +18,29 @@
     </header>
     <main>
         <form id="recipe-form">
-            <label for="recipe-name">Recipe Name:</label>
-            <input type="text" id="recipe-name" name="recipe-name" required>
+            <div class="form-group">
+                <label for="recipe-name">Recipe Name:</label>
+                <input type="text" id="recipe-name" name="recipe-name" required>
+            </div>
             
-            <label for="recipe-description">Description:</label>
-            <textarea id="recipe-description" name="recipe-description" required></textarea>
+            <div class="form-group">
+                <label for="recipe-description">Description:</label>
+                <textarea id="recipe-description" name="recipe-description" required></textarea>
+            </div>
             
-            <label for="recipe-ingredients">Ingredients (separate by commas):</label>
-            <textarea id="recipe-ingredients" name="recipe-ingredients" required></textarea>
+            <div class="form-group">
+                <label for="recipe-ingredients">Ingredients (separate by commas):</label>
+                <textarea id="recipe-ingredients" name="recipe-ingredients" required></textarea>
+            </div>
             
-            <label for="recipe-method">Method:</label>
-            <textarea id="recipe-method" name="recipe-method" required></textarea>
+            <div class="form-group">
+                <label for="recipe-method">Method:</label>
+                <textarea id="recipe-method" name="recipe-method" required></textarea>
+            </div>
             
             <button type="submit">Submit Recipe</button>
         </form>
+        <div id="feedback-message"></div>
     </main>
     <footer>
         <p>&copy; 2024 Recipe Finder</p>
