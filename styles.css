@@ -24,15 +24,78 @@ header {
     text-align: center;
 }
 
+.hero-content {
+    position: relative;
+    display: inline-block; /* Ensure the dropdown is positioned relative to this container */
+}
 
-.hero-content input[type="text"] {
+.search-container {
+    display: flex; /* Use Flexbox to align items in a row */
+    align-items: center; /* Vertically center the items */
+    justify-content: center; /* Center items horizontally */
+    margin-top: 20px; /* Adjust the margin to add space between the text and the search bar/button */
+}
+
+#search-bar {
     padding: 5px;
     font-size: 0.8em;
-    margin-top: 20px;
     border: none;
     border-radius: 25px;
     width: 100%;
-    max-width: 300px;
+    max-width: 200px; /* Adjust width as needed */
+}
+
+#search-button {
+    padding: 5px 20px;
+    font-size: 0.8em;
+    cursor: pointer;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    margin-left: 10px; /* Space between the search bar and button */
+}
+
+#search-button:hover {
+    background-color: #0056b3;
+}
+
+#search-results {
+    position: absolute;
+    top: 100%; /* Position below the search bar */
+    left: 0;
+    width: 100%;
+    max-width: 200px; /* Should match the width of the search bar */
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 5px;
+    display: none; /* Hide initially */
+    z-index: 100;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+#search-results ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#search-results li {
+    padding: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+#search-results li:last-child {
+    border-bottom: none;
+}
+
+#search-results a {
+    color: white;
+    text-decoration: none;
+    display: block;
+}
+
+#search-results a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 nav {
@@ -101,7 +164,7 @@ main {
 
 #recipes li a:hover {
     text-decoration: underline;
-    background-color: #fbfafb;
+    background-color: transparent;
 }
 
 #newsletter {

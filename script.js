@@ -14,27 +14,66 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const recipeList = document.getElementById('recipes');
     const searchBar = document.getElementById('search-bar');
+    const searchResults = document.getElementById('search-results');
     const subscribeForm = document.getElementById('subscribe-form');
     const emailInput = document.getElementById('email');
+    const searchButton = document.getElementById('search-button');
 
-    // Function to display recipes
-    function filterRecipes() {
-        const query = searchBar.value.toLowerCase();
-        recipeList.innerHTML = ''; // Clear current list
-        const filteredRecipes = recipes.filter(recipe => recipe.name.toLowerCase().includes(query));
-        filteredRecipes.forEach(recipe => {
+    // Display frequently searched recipes
+    const popularRecipes = [
+        { name: 'Spaghetti Carbonara', link: 'carbonara.html' },
+        { name: 'Chicken Tikka Masala', link: 'tikka-masala.html' },
+        { name: 'Beef Stroganoff', link: 'stroganoff.html' },
+        { name: 'Vegetarian Pizza', link: 'vegetarian-pizza.html' }
+    ];
+    
+    function displayPopularRecipes() {
+        recipeList.innerHTML = '';
+        popularRecipes.forEach(recipe => {
             const recipeItem = document.createElement('li');
-            recipeItem.className = 'recipe-item';
-            recipeItem.innerHTML = `<h3><a href="${recipe.link}">${recipe.name}</a></h3><p>${recipe.description}</p>`;
+            recipeItem.innerHTML = `<a href="${recipe.link}">${recipe.name}</a>`;
             recipeList.appendChild(recipeItem);
         });
     }
 
+    function displaySearchResults(results) {
+        searchResults.innerHTML = '';
+        if (results.length === 0) {
+            searchResults.style.display = 'none';
+            return;
+        }
+        const ul = document.createElement('ul');
+        results.forEach(recipe => {
+            const li = document.createElement('li');
+            li.innerHTML = `<a href="${recipe.link}">${recipe.name}</a>`;
+            ul.appendChild(li);
+        });
+        searchResults.appendChild(ul);
+        searchResults.style.display = 'block';
+    }
 
-    // Event listener for search bar input
+    function filterRecipes() {
+        const query = searchBar.value.toLowerCase();
+        if (query.length === 0) {
+            searchResults.style.display = 'none'; // Hide dropdown when search bar is empty
+            return;
+        }
+        const filteredRecipes = recipes.filter(recipe => recipe.name.toLowerCase().includes(query));
+        displaySearchResults(filteredRecipes);
+    }
+
     searchBar.addEventListener('input', filterRecipes);
 
-    // Event listener for subscription form
+    searchButton.addEventListener('click', () => {
+        const query = searchBar.value.toLowerCase();
+        const recipe = recipes.find(recipe => recipe.name.toLowerCase() === query);
+        if (recipe) {
+            window.location.href = recipe.link;
+        } else {
+            alert('No matching recipe found.');
+        }
+    });
+
     subscribeForm.addEventListener('submit', (e) => {
         e.preventDefault();
         const email = emailInput.value;
@@ -46,84 +85,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Function to validate email address
     function validateEmail(email) {
         const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return re.test(email);
     }
 
-    const recipeForm = document.getElementById('recipe-form');
-    if (recipeForm) {
-        recipeForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const name = document.getElementById('recipe-name').value;
-            const description = document.getElementById('recipe-description').value;
-            const ingredients = document.getElementById('recipe-ingredients').value.split(',');
-            const method = document.getElementById('recipe-method').value;
+    displayPopularRecipes();
 
-            const newRecipe = { name, description, ingredients, method };
-            recipes.push(newRecipe);
-            localStorage.setItem('recipes', JSON.stringify(recipes));
-            alert('Recipe added successfully!');
-            recipeForm.reset();
-            generateRecipePage(newRecipe);
-        });
-    }
-
-    function generateRecipePage(recipe) {
-        const pageContent = `
-        <!DOCTYPE html>
-        <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>${recipe.name}</title>
-            <link rel="stylesheet" href="styles.css">
-        </head>
-        <body>
-            <nav>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="details.html">Details</a></li>
-                    <li><a href="recipe-form.html">Recipe Form</a></li>
-                </ul>
-            </nav>
-            <header>
-                <h1>${recipe.name}</h1>
-            </header>
-            <main>
-                <section>
-                    <h2>Ingredients</h2>
-                    <ul>
-                        ${recipe.ingredients.map(ingredient => `<li>${ingredient}</li>`).join('')}
-                    </ul>
-                </section>
-                <section>
-                    <h2>Method</h2>
-                    <p>${recipe.method}</p>
-                </section>
-                <button onclick="goBack()">Back to Home</button>
-            </main>
-            <footer>
-                <p>&copy; 2024 Recipe Finder</p>
-            </footer>
-            <script>
-                function goBack() {
-                    window.location.href = 'index.html';
-                }
-            </script>
-        </body>
-        </html>
-        `;
-
-        const blob = new Blob([pageContent], { type: 'text/html' });
-        const a = document.createElement('a');
-        a.href = URL.createObjectURL(blob);
-        a.download = `${recipe.name.toLowerCase().replace(/ /g, '-')}.html`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-    }
-
-    displayRecipes(recipes);
 });
